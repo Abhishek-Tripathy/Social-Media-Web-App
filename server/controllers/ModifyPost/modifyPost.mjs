@@ -11,7 +11,7 @@ export default async (req, res) => {
          { $set: { content: updatedContent } },
          { new: true } 
       );
-
+      
       
       if (!updatedPost)
          return res.status(404).json({ status: false, message: "Post not found or unauthorized" });

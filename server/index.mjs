@@ -2,6 +2,8 @@ import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import { router as userRouter } from "./routes/userRoutes.mjs"
+import { cloudinary_upload } from "./Cloudinary_Config/storage.mjs"
+import handleUploadAPI from "./Cloudinary_Config/handleUploadAPI.mjs"
 
 dotenv.config()
 
@@ -16,6 +18,10 @@ mongoose.connect(MONGODB_URI)
 
 web.use("/api/v1", userRouter)
 
+web.post("/api/uploadImage", cloudinary_upload.array("images"), handleUploadAPI)
+
+
 web.listen(PORT, () => {
    console.log(`Server is listening at ${PORT}`);
 })
+

@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-import jwt, { verify } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import { userCol } from "../../models/userModel.mjs"
 
 dotenv.config()
@@ -17,6 +17,9 @@ export default async (req, res) =>  {
       const tokenVerified = jwt.verify(token, privateKey)
       const user = await userCol.findOne({_id: tokenVerified.useId})
 
+      res.status(200).json({
+         status: user ? true : false, message: user 
+      })
 
    } catch (error) {
       console.error ("Error at get user from cookie", error)
