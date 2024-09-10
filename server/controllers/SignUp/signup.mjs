@@ -9,8 +9,11 @@ dotenv.config()
 const privateKey = process.env.JWT_TOKEN
 
 export default async (req, res) => {
-
+    
+    
   try {
+    console.log(req.body);
+    
     const { firstName, lastName, gender, email, mobileNo, password, username } =
       req.body;
 
@@ -39,7 +42,7 @@ export default async (req, res) => {
         .json({ status: false, message: "Invalid Email Id" });
     else if (
       mobileNo !== "" &&
-      !new RegExp("^[+0-9][0-9]{4,11}$").test(phno.trim())
+      !new RegExp("^[+0-9][0-9]{4,11}$").test(mobileNo.trim())
     )
       return res
         .status(200)
@@ -91,7 +94,7 @@ export default async (req, res) => {
 
 
   } catch (error) {
-    console.error(`The error at controller/signin ==> ${error}`);
+    console.error(`The error at controller/signup ==> ${error}`);
     res.status(500).send();
   }
 };

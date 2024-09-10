@@ -1,5 +1,6 @@
 import postCol from "../../models/postModel.mjs"
 import { userCol } from "../../models/userModel.mjs";
+import { generateTime } from "../../utils/generateTime.mjs";
 
 export default async (req, res) => {
    try {
@@ -7,7 +8,7 @@ export default async (req, res) => {
 
       if(!username || !profilePic || !caption || !location || images.length !== 0) {
          return res
-            .status(200)
+            .status(400)
             .json({ status: false, message: "All fields must be filled" });
       }
 
@@ -29,7 +30,7 @@ export default async (req, res) => {
 
       const saveInDB = await post.save();
 
-      if(!saveInDB) return res.status(200).json({statur: false, message: "post not created"})
+      if(!saveInDB) return res.status(400).json({statur: false, message: "post not created"})
 
       
       const userResponse = await userCol.findOneAndUpdate(
@@ -42,7 +43,7 @@ export default async (req, res) => {
 
       if(!userResponse) {
          await postCol.findByIdAndDelete(saveInDB._id)
-         return  res.status(200).json({statur: false, message: "find and update not done properly "})
+         return  res.status(400).json({statur: false, message: "find and update not done properly "})
       }
 
       res.status(200).json({

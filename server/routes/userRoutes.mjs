@@ -10,17 +10,17 @@ import modifyPost from "../controllers/ModifyPost/modifyPost.mjs"
 
 const router = express.Router()
 
-router.post("/signin", signin)
+router.post("/signin", signin) //checked
 
-router.post("/signup", signup)
+router.post("/signup", signup) //checked
 
-router.get("/signout", signOut)
+router.get("/signout", signOut) //checked
 
-router.get("/getUser", getUserFromCookie)
+router.get("/getUser", getUserFromCookie) //
 
 router.get("/getAllPost", getAllPosts)
 
-router.post("/createPost", createPost)
+router.post("/createPost", createPost) //
 
 router.delete("/deletePost" , deletePost)
 

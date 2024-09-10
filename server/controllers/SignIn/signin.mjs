@@ -11,7 +11,7 @@ export default async (req, res) => {
       const {emailOrUsername, password} = req.body
 
       if(!emailOrUsername || !password) return res
-      .statur(200)
+      .status(400)
       .json({status: false, message: "Email/Username or Password needed"})
 
       const user = await userCol.findOne({
@@ -22,13 +22,13 @@ export default async (req, res) => {
       }) 
 
       if(!user) return res
-      .statur(200)
+      .status(400)
       .json({status: false, message: "User doesnt exist, Please sign up"})
 
       const isPasswordValid = bcryptjs.compareSync(password, user.userDetails.password)
 
       if(!isPasswordValid) return res
-      .statur(200)
+      .status(400)
       .json({status: false, message: "Wrong Credentials"})
 
       const createToken = jwt.sign({ userId: user._id }, privateKey);
