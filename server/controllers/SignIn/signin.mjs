@@ -10,6 +10,9 @@ export default async (req, res) => {
    try {
       const {emailOrUsername, password} = req.body
 
+      console.log();
+      
+
       if(!emailOrUsername || !password) return res
       .status(400)
       .json({status: false, message: "Email/Username or Password needed"})
@@ -28,7 +31,7 @@ export default async (req, res) => {
       const isPasswordValid = bcryptjs.compareSync(password, user.userDetails.password)
 
       if(!isPasswordValid) return res
-      .status(400)
+      .status(200)
       .json({status: false, message: "Wrong Credentials"})
 
       const createToken = jwt.sign({ userId: user._id }, privateKey);
