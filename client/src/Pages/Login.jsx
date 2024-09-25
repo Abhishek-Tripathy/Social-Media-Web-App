@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import {toast} from 'react-toastify'
 import axios from 'axios'
+import { addUser } from '../Redux_Component/Features/userSlice.mjs'
+import { useDispatch } from 'react-redux'
 
 function Login() {
+  const dispatch = useDispatch()
    function handleSubmit (e) {
       e.preventDefault()
 
@@ -15,17 +18,16 @@ function Login() {
           const {status, message} = res.data
           
           if(!status) return toast(message)
+          dispatch(addUser(message))
         } 
       )
       .catch(
         (error) => {
          if(error.response.status === 400) return toast(error.response.data.message)
-
+          
          toast("Network Connection Error")
         }
-      )
-
-      
+      )  
    }
    const formElements = [{type: 'text', placeholder: 'Email', name: 'emailOrUsername', label: 'Email or User Name' },
       {type: 'password', placeholder: 'Password', name: 'password', label: 'Password'}

@@ -12,7 +12,7 @@ export default async (req, res) => {
     
     
   try {
-    console.log(req.body);
+    // console.log(req.body);
     
     const { firstName, lastName, gender, email, mobileNo, password, username } =
       req.body;
